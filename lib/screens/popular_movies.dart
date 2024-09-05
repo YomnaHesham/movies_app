@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/app_theme.dart';
 import 'package:movies/movie_item.dart';
+import 'package:movies/screens/movie_details.dart';
 
 class PopularMovies extends StatelessWidget {
   const PopularMovies({super.key});
@@ -9,6 +10,7 @@ class PopularMovies extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        Navigator.of(context).pushNamed(MovieDetails.routName);
         print("Popular Movies");
       },
       child: Container(

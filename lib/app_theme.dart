@@ -14,6 +14,19 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     primaryColor: primary,
     scaffoldBackgroundColor: blackBG,
+    appBarTheme: AppBarTheme(
+      backgroundColor: grayBG,
+      centerTitle: false,
+      titleTextStyle: GoogleFonts.inder(
+        color: white,
+        fontWeight: FontWeight.w400,
+        fontSize: 20,
+      ),
+      iconTheme: IconThemeData(
+        color: white,
+        size: 24,
+      ),
+    ),
     dividerColor: line,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: grayBG,
