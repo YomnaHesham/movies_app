@@ -58,7 +58,7 @@ class AppTheme {
       headlineLarge: GoogleFonts.poppins(
         color: white,
         fontWeight: FontWeight.w600,
-        fontSize: 14,
+        fontSize: 16,
       ),
       headlineMedium: GoogleFonts.inder(
         color: grayDate,

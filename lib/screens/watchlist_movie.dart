@@ -7,12 +7,11 @@ class WatchlistMovie extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+
       child: Column(
         children: [
-          SizedBox(
-            height: 32,
-          ),
           Row(
             children: [
               MovieItem(

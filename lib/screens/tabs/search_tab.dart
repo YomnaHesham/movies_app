@@ -45,12 +45,16 @@ class SearchTab extends StatelessWidget {
                   .copyWith(color: AppTheme.grayBody),
             ),
           ),
-          // Expanded(
-          //   child: Center(
-          //     child: Image.asset("assets/images/no_movies.png"),
-          //   ),
-          // ),
-          const WatchlistMovie(),
+          SizedBox(
+            height: 32,
+          ),
+          Expanded(
+            child: Center(
+              child: Image.asset("assets/images/no_movies.png"),
+            ),
+          ),
+
+          // WatchlistMovie(),
         ],
       ),
     );
