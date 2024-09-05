@@ -9,19 +9,24 @@ class MovieItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: Image.asset(
-            "assets/images/test.png",
-            width: width,
-            height: height,
-            fit: BoxFit.fill,
+    return GestureDetector(
+      onTap: () {
+        print("New Movies");
+      },
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: Image.asset(
+              "assets/images/test.png",
+              width: width,
+              height: height,
+              fit: BoxFit.fill,
+            ),
           ),
-        ),
-        AddToWatchlistItem(),
-      ],
+          AddToWatchlistItem(),
+        ],
+      ),
     );
   }
 }

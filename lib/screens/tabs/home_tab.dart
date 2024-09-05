@@ -1,10 +1,19 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/app_theme.dart';
 import 'package:movies/movie_card.dart';
 import 'package:movies/movie_item.dart';
+import 'package:movies/screens/popular_movies.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
   HomeTab({super.key});
+
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
+  int currentIndex = 0;
 
   List<MovieItem> releaseMovie = [
     MovieItem(width: 96, height: 127),
@@ -16,6 +25,7 @@ class HomeTab extends StatelessWidget {
     MovieItem(width: 96, height: 127),
     MovieItem(width: 96, height: 127),
   ];
+
   List<MovieCard> recommendedMovie = [
     const MovieCard(),
     const MovieCard(),
@@ -24,68 +34,38 @@ class HomeTab extends StatelessWidget {
     const MovieCard(),
   ];
 
+  List<PopularMovies> popularMovies = [
+    const PopularMovies(),
+    const PopularMovies(),
+    const PopularMovies(),
+    const PopularMovies(),
+    const PopularMovies(),
+    const PopularMovies(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.40,
-            child: Stack(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Image.asset(
-                          "assets/images/test.png",
-                          width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.25,
-                          fit: BoxFit.cover,
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.play_circle,
-                              size: 60, color: AppTheme.white),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.60,
-                      padding: const EdgeInsets.symmetric(vertical: 24),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Dora and the Lost City of Gold',
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            '2019 PG-13 2h 7m',
-                            style: Theme.of(context).textTheme.headlineMedium,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Positioned(
-                  bottom: 24,
-                  left: 20,
-                  child: MovieItem(
-                    width: 129,
-                    height: 199,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          PopularMovies(),
+          // Container(
+          //   height: MediaQuery.of(context).size.height * 0.40,
+          //   width: double.infinity,
+          //   child: CarouselSlider(
+          //     options: CarouselOptions(
+          //       autoPlay: false,
+          //       enlargeCenterPage: true,
+          //       onPageChanged: (index, reason) {
+          //         setState(() {
+          //           currentIndex = index;
+          //         });
+          //       },
+          //     ),
+          //     items: popularMovies,
+          //   ),
+          // ),
           Container(
             height: MediaQuery.of(context).size.height * 0.25,
             width: double.infinity,
@@ -139,7 +119,7 @@ class HomeTab extends StatelessWidget {
                   child: ListView.separated(
                     separatorBuilder: (context, index) {
                       return const SizedBox(
-                        width: 12,
+                        width: 8,
                       );
                     },
                     scrollDirection: Axis.horizontal,
