@@ -3,15 +3,17 @@ import 'package:movies/app_theme.dart';
 import 'package:movies/movie_card.dart';
 import 'package:movies/movie_item.dart';
 
-class MovieDetails extends StatelessWidget {
+class MovieDetailsScreen extends StatelessWidget {
   static const String routName = "movie_details";
 
-  const MovieDetails({super.key});
+  const MovieDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Hello"),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +62,7 @@ class MovieDetails extends StatelessWidget {
                             Container(
                                 width: MediaQuery.of(context).size.width * 0.35,
                                 child: MovieItem(
-                                    width: double.infinity, height: 199)),
+                                    width: double.infinity, height: 199,imagePath: "assets/images/test.png",)),
                             Container(
                               padding: const EdgeInsets.only(left: 12.0),
                               width: MediaQuery.of(context).size.width * 0.50,

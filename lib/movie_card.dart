@@ -18,7 +18,9 @@ class MovieCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
-            MovieItem(width: 96, height: 127),
+            MovieItem(width: 96, height: 127,
+              imagePath: "assets/images/test.png",
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0,top: 8.0),
               child: Row(

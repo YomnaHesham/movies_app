@@ -9,7 +9,6 @@ class WatchlistMovie extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
-
       child: Column(
         children: [
           Row(
@@ -17,6 +16,7 @@ class WatchlistMovie extends StatelessWidget {
               MovieItem(
                 height: 89,
                 width: 140,
+                imagePath: "assets/images/test.png",
               ),
               SizedBox(
                 width: 10,
@@ -30,17 +30,15 @@ class WatchlistMovie extends StatelessWidget {
                   ),
                   Text(
                     "2019",
-                    style:
-                    Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: AppTheme.white,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: AppTheme.white,
+                        ),
                   ),
                   Text(
                     "Rosa Salazar, Christoph Waltz",
-                    style:
-                    Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: AppTheme.white,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: AppTheme.white,
+                        ),
                   ),
                 ],
               ),

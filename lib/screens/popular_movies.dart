@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:movies/app_theme.dart';
 import 'package:movies/movie_item.dart';
-import 'package:movies/screens/movie_details.dart';
+import 'package:movies/screens/movie_details_screen.dart';
+import 'package:movies/screens/tabs/popular_movies_model.dart';
 
 class PopularMovies extends StatelessWidget {
-  const PopularMovies({super.key});
+  final PopularMoviesModel popularMoviesModel;
+
+  PopularMovies({required this.popularMoviesModel, super.key});
 
   @override
   Widget build(BuildContext context) {
+    String posterUrl = 'https://image.tmdb.org/t/p/w500${popularMoviesModel.imagePath}';
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(MovieDetails.routName);
+        Navigator.of(context).pushNamed(MovieDetailsScreen.routName);
         print("Popular Movies");
       },
       child: Container(
@@ -23,8 +27,8 @@ class PopularMovies extends StatelessWidget {
                 Stack(
                   alignment: Alignment.center,
                   children: [
-                    Image.asset(
-                      "assets/images/test.png",
+                    Image.network(
+                      posterUrl,
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.25,
                       fit: BoxFit.cover,
@@ -43,14 +47,14 @@ class PopularMovies extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Dora and the Lost City of Gold',
+                        popularMoviesModel.title,
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        '2019 PG-13 2h 7m',
+                        popularMoviesModel.releaseDate,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ],
@@ -64,6 +68,7 @@ class PopularMovies extends StatelessWidget {
               child: MovieItem(
                 width: 129,
                 height: 199,
+                imagePath: posterUrl,
               ),
             ),
           ],

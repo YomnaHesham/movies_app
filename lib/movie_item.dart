@@ -4,8 +4,13 @@ import 'package:movies/add_to_watchlist_item.dart';
 class MovieItem extends StatelessWidget {
   double width;
   double height;
+  String imagePath;
 
-  MovieItem({required this.width, required this.height, super.key});
+  MovieItem(
+      {required this.width,
+      required this.height,
+      required this.imagePath,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +22,8 @@ class MovieItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
-            child: Image.asset(
-              "assets/images/test.png",
+            child: Image.network(
+              imagePath,
               width: width,
               height: height,
               fit: BoxFit.fill,
