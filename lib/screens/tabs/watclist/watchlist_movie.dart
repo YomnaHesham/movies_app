@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/app_theme.dart';
-import 'package:movies/movie_item.dart';
+import 'package:movies/widgets/movie_item.dart';
 
 class WatchlistMovie extends StatelessWidget {
   const WatchlistMovie({super.key});
@@ -13,11 +13,11 @@ class WatchlistMovie extends StatelessWidget {
         children: [
           Row(
             children: [
-              MovieItem(
-                height: 89,
-                width: 140,
-                imagePath: "assets/images/test.png",
-              ),
+              // MovieItem(
+              //   height: 89,
+              //   width: 140,
+              //   imagePath: "assets/images/test.png",
+              // ),
               SizedBox(
                 width: 10,
               ),

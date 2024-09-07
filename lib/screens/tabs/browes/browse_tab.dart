@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/screens/browes_item.dart';
+import 'package:movies/screens/tabs/browes/browes_item.dart';
 
 class BrowseTab extends StatelessWidget {
   const BrowseTab({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/app_theme.dart';
-import 'package:movies/movie_item.dart';
+import 'package:movies/widgets/movie_item.dart';
 
 class MovieCard extends StatelessWidget {
   const MovieCard({super.key});
@@ -18,9 +18,9 @@ class MovieCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
-            MovieItem(width: 96, height: 127,
-              imagePath: "assets/images/test.png",
-            ),
+            // MovieItem(width: 96, height: 127,
+            //   imagePath: "assets/images/test.png",
+            // ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0,top: 8.0),
               child: Row(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/screens/watchlist_movie.dart';
+import 'package:movies/screens/tabs/watclist/watchlist_movie.dart';
 
 class WatchlistTab extends StatelessWidget {
   WatchlistTab({super.key});

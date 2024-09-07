@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/app_theme.dart';
-import 'package:movies/movie_card.dart';
-import 'package:movies/movie_item.dart';
+import 'package:movies/widgets/movie_card.dart';
+import 'package:movies/widgets/movie_item.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   static const String routName = "movie_details";
@@ -59,10 +59,14 @@ class MovieDetailsScreen extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            Container(
-                                width: MediaQuery.of(context).size.width * 0.35,
-                                child: MovieItem(
-                                    width: double.infinity, height: 199,imagePath: "assets/images/test.png",)),
+                            // Container(
+                            //   width: MediaQuery.of(context).size.width * 0.35,
+                            //   child: MovieItem(
+                            //     width: double.infinity,
+                            //     height: 199,
+                            //     imagePath: "assets/images/test.png",
+                            //   ),
+                            // ),
                             Container(
                               padding: const EdgeInsets.only(left: 12.0),
                               width: MediaQuery.of(context).size.width * 0.50,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/app_theme.dart';
-import 'package:movies/screens/watchlist_movie.dart';
+import 'package:movies/screens/tabs/watclist/watchlist_movie.dart';
 
 class SearchTab extends StatelessWidget {
   const SearchTab({super.key});
