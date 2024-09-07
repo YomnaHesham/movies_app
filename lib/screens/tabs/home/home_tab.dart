@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:movies/apis/api_manager.dart';
 import 'package:movies/app_theme.dart';
 import 'package:movies/widgets/error_indicator.dart';
-import 'package:movies/widgets/movie_card.dart';
+import 'package:movies/widgets/recommended_item.dart';
 import 'package:movies/widgets/movie_item.dart';
 import 'package:movies/widgets/movie_item_model.dart';
 import 'package:movies/screens/movie_details_screen.dart';
 import 'package:movies/screens/tabs/home/popular_movies.dart';
 import 'package:movies/screens/tabs/home/popular_movies_model.dart';
 import 'package:movies/widgets/not_available_indicator.dart';
+import 'package:movies/widgets/recommended_model.dart';
 import 'package:movies/widgets/waiting_indicator.dart';
 
 class HomeTab extends StatefulWidget {
@@ -21,14 +22,6 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   int currentIndex = 0;
-
-  List<MovieCard> recommendedMovie = [
-    const MovieCard(),
-    const MovieCard(),
-    const MovieCard(),
-    const MovieCard(),
-    const MovieCard(),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +35,7 @@ class _HomeTabState extends State<HomeTab> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const WaitingIndicator();
               } else if (!snapshot.hasData || snapshot.data?.results == null) {
-                return NotAvailableIndicator();
+                return const NotAvailableIndicator();
               } else if (snapshot.hasError) {
                 return const ErrorIndicator();
               } else {
@@ -57,7 +50,7 @@ class _HomeTabState extends State<HomeTab> {
                 return CarouselSlider.builder(
                   itemCount: popularMovies.length,
                   options: CarouselOptions(
-                    height: MediaQuery.of(context).size.height * 0.40,
+                    height: MediaQuery.of(context).size.height * 0.45,
                     enlargeCenterPage: false,
                     viewportFraction: 1.0,
                     autoPlay: true,
@@ -77,9 +70,8 @@ class _HomeTabState extends State<HomeTab> {
               }
             },
           ),
-
           FutureBuilder(
-            future: ApiManager.getPopular(),
+            future: ApiManager.getNewReleases(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const WaitingIndicator();
@@ -139,23 +131,23 @@ class _HomeTabState extends State<HomeTab> {
               }
             },
           ),
-
           FutureBuilder(
-            future: ApiManager.getPopular(),
+            future: ApiManager.getRecommended(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const WaitingIndicator();
               } else if (!snapshot.hasData || snapshot.data?.results == null) {
-                return NotAvailableIndicator();
+                return const NotAvailableIndicator();
               } else if (snapshot.hasError) {
                 return const ErrorIndicator();
               } else {
-                var newReleases =
-                snapshot.data!.results!.map<MovieItemModel>((newMovie) {
-                  return MovieItemModel(
-                    width: 96,
-                    height: 127,
-                    imagePath: newMovie.posterPath ?? "",
+                var recommended = snapshot.data!.results!
+                    .map<RecommendedModel>((recommendMovie) {
+                  return RecommendedModel(
+                    title: recommendMovie.title ?? "No Title ",
+                    releasedDate: recommendMovie.releaseDate ?? "Unknown Date",
+                    rate: recommendMovie.voteAverage ?? 0,
+                    imagePath: recommendMovie.posterPath ?? "",
                   );
                 }).toList();
                 return GestureDetector(
@@ -164,16 +156,16 @@ class _HomeTabState extends State<HomeTab> {
                         .pushNamed(MovieDetailsScreen.routName);
                   },
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.25,
+                    height: MediaQuery.of(context).size.height * 0.35,
                     width: double.infinity,
                     color: AppTheme.grayBG,
                     padding: const EdgeInsets.all(24),
-                    margin: const EdgeInsets.only(top: 16, bottom: 24),
+                    margin: const EdgeInsets.only(bottom: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "New Releases",
+                          "Recommended",
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                         const SizedBox(
@@ -183,57 +175,24 @@ class _HomeTabState extends State<HomeTab> {
                           child: ListView.separated(
                             separatorBuilder: (context, index) {
                               return const SizedBox(
-                                width: 12,
+                                width: 8,
                               );
                             },
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
-                              final newMovie = newReleases[index];
-                              return MovieItem(movieItemModel: newMovie);
+                              final recommendedMovie = recommended[index];
+                              return RecommendedItem(
+                                  recommendedModel: recommendedMovie);
                             },
-                            itemCount: newReleases.length,
+                            itemCount: recommended.length,
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
                 );
               }
             },
-          ),
-
-          Container(
-            height: MediaQuery.of(context).size.height * 0.35,
-            width: double.infinity,
-            color: AppTheme.grayBG,
-            padding: const EdgeInsets.all(24),
-            margin: const EdgeInsets.only(bottom: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Recommended",
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Expanded(
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        width: 8,
-                      );
-                    },
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return recommendedMovie[index];
-                    },
-                    itemCount: recommendedMovie.length,
-                  ),
-                ),
-              ],
-            ),
           ),
         ],
       ),

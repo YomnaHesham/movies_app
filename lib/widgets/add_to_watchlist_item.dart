@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:movies/app_theme.dart';
 
-class AddToWatchlistItem extends StatelessWidget {
-  const AddToWatchlistItem({super.key});
+class AddToWatchlistItem extends StatefulWidget {
+  AddToWatchlistItem({super.key});
+
+  @override
+  State<AddToWatchlistItem> createState() => _AddToWatchlistItemState();
+}
+
+class _AddToWatchlistItemState extends State<AddToWatchlistItem> {
+  bool isTaped = false;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        print("Added");
+        !isTaped;
+        setState(() {});
       },
       child: Column(
         children: [
@@ -16,15 +24,16 @@ class AddToWatchlistItem extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8),
             width: 32,
             decoration: BoxDecoration(
-              color: AppTheme.grayBG.withOpacity(0.8),
+              color:
+                  isTaped ? AppTheme.grayBG.withOpacity(0.8) : AppTheme.primary,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(4),
                 topRight: Radius.circular(4),
               ),
             ),
-            child:  Center(
+            child: Center(
               child: Icon(
-                Icons.add,
+                !isTaped ? Icons.add : Icons.done,
                 color: AppTheme.white,
                 size: 24,
               ),
@@ -35,7 +44,8 @@ class AddToWatchlistItem extends StatelessWidget {
             child: Container(
               width: 32,
               padding: const EdgeInsets.all(8),
-              color: AppTheme.grayBG.withOpacity(0.8),
+              color:
+                  !isTaped ? AppTheme.grayBG.withOpacity(0.8) : AppTheme.primary,
             ),
           ),
         ],

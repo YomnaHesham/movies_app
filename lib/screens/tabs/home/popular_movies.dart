@@ -14,7 +14,7 @@ class PopularMovies extends StatelessWidget {
   Widget build(BuildContext context) {
     String posterUrl = 'https://image.tmdb.org/t/p/w500${popularMoviesModel.imagePath}';
     return Container(
-      height: MediaQuery.of(context).size.height * 0.40,
+      height: MediaQuery.of(context).size.height * 0.45,
       child: Stack(
         children: [
           Column(
@@ -26,8 +26,8 @@ class PopularMovies extends StatelessWidget {
                   Image.network(
                     posterUrl,
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.25,
-                    fit: BoxFit.cover,
+                    height: MediaQuery.of(context).size.height * 0.30,
+                    fit: BoxFit.fill,
                   ),
                   IconButton(
                     icon: const Icon(Icons.play_circle,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/app_theme.dart';
-import 'package:movies/widgets/movie_card.dart';
+import 'package:movies/widgets/recommended_item.dart';
 import 'package:movies/widgets/movie_item.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
@@ -131,20 +131,20 @@ class MovieDetailsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  Expanded(
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(
-                          width: 8,
-                        );
-                      },
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return MovieCard();
-                      },
-                      itemCount: 10,
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: ListView.separated(
+                  //     separatorBuilder: (context, index) {
+                  //       return const SizedBox(
+                  //         width: 8,
+                  //       );
+                  //     },
+                  //     scrollDirection: Axis.horizontal,
+                  //     itemBuilder: (context, index) {
+                  //       return MovieCard();
+                  //     },
+                  //     itemCount: 10,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
