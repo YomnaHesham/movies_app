@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movies/screens/tabs/browes/browes_item.dart';
+import 'package:movies/apis/api_manager.dart';
+import 'package:movies/app_theme.dart';
+import 'package:movies/screens/tabs/browes/movies_category.dart';
+import 'package:movies/widgets/error_indicator.dart';
+import 'package:movies/widgets/not_available_indicator.dart';
+import 'package:movies/widgets/waiting_indicator.dart';
 
 class BrowseTab extends StatelessWidget {
   const BrowseTab({super.key});
@@ -21,16 +26,48 @@ class BrowseTab extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 32,
-                    crossAxisSpacing: 32),
-                itemBuilder: (context, index) {
-                  return BrowesItem();
-                },
-                itemCount: 8,
-              ),
+              child: FutureBuilder(
+                  future: ApiManager.getGenreMovie(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const WaitingIndicator();
+                    } else if (!snapshot.hasData ||
+                        snapshot.data?.genres == null) {
+                      return const NotAvailableIndicator();
+                    } else if (snapshot.hasError) {
+                      return const ErrorIndicator();
+                    } else {
+                      var genres = snapshot.data?.genres ?? [];
+                      return GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 32,
+                                crossAxisSpacing: 32),
+                        itemBuilder: (context, index) {
+                          return ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pushNamed(
+                                    MoviesCategory.routName,
+                                    arguments: genres[index].id);
+                                print(genres[index].id);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  textStyle:
+                                      Theme.of(context).textTheme.titleSmall,
+                                  backgroundColor: AppTheme.blackBG,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    side: const BorderSide(
+                                        color: AppTheme.grayBody),
+                                  ),
+                                  foregroundColor: AppTheme.grayBody),
+                              child: Text(genres[index].name ?? ""));
+                        },
+                        itemCount: genres.length,
+                      );
+                    }
+                  }),
             ),
           ),
         ],

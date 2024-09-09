@@ -15,7 +15,8 @@ class _AddToWatchlistItemState extends State<AddToWatchlistItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        !isTaped;
+        isTaped = !isTaped;
+        print(isTaped);
         setState(() {});
       },
       child: Column(
@@ -25,7 +26,7 @@ class _AddToWatchlistItemState extends State<AddToWatchlistItem> {
             width: 32,
             decoration: BoxDecoration(
               color:
-                  isTaped ? AppTheme.grayBG.withOpacity(0.8) : AppTheme.primary,
+                  !isTaped ? AppTheme.grayBG.withOpacity(0.8) : AppTheme.primary,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(4),
                 topRight: Radius.circular(4),

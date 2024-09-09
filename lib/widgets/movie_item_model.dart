@@ -3,6 +3,7 @@ class MovieItemModel {
   double height;
   String imagePath;
 
+
   MovieItemModel({
     required this.width,
     required this.height,

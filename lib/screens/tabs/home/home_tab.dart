@@ -60,8 +60,9 @@ class _HomeTabState extends State<HomeTab> {
                     final movie = popularMovies[index];
                     return GestureDetector(
                       onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(MovieDetailsScreen.routName);
+                        Navigator.of(context).pushNamed(
+                            MovieDetailsScreen.routName,
+                            arguments: movie.id);
                       },
                       child: PopularMovies(popularMoviesModel: movie),
                     );
@@ -76,7 +77,7 @@ class _HomeTabState extends State<HomeTab> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const WaitingIndicator();
               } else if (!snapshot.hasData || snapshot.data?.results == null) {
-                return NotAvailableIndicator();
+                return const NotAvailableIndicator();
               } else if (snapshot.hasError) {
                 return const ErrorIndicator();
               } else {
@@ -88,44 +89,45 @@ class _HomeTabState extends State<HomeTab> {
                     imagePath: newMovie.posterPath ?? "",
                   );
                 }).toList();
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(MovieDetailsScreen.routName);
-                  },
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.25,
-                    width: double.infinity,
-                    color: AppTheme.grayBG,
-                    padding: const EdgeInsets.all(24),
-                    margin: const EdgeInsets.only(top: 16, bottom: 24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "New Releases",
-                          style: Theme.of(context).textTheme.titleSmall,
+                return Container(
+                  height: MediaQuery.of(context).size.height * 0.30,
+                  width: double.infinity,
+                  color: AppTheme.grayBG,
+                  padding: const EdgeInsets.all(24),
+                  margin: const EdgeInsets.only(top: 16, bottom: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "New Releases",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Expanded(
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(
+                              width: 12,
+                            );
+                          },
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            final newMovie = newReleases[index];
+                            return GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                      MovieDetailsScreen.routName,
+                                      arguments:
+                                          snapshot.data?.results?[index].id);
+                                },
+                                child: MovieItem(movieItemModel: newMovie));
+                          },
+                          itemCount: newReleases.length,
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Expanded(
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(
-                                width: 12,
-                              );
-                            },
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              final newMovie = newReleases[index];
-                              return MovieItem(movieItemModel: newMovie);
-                            },
-                            itemCount: newReleases.length,
-                          ),
-                        )
-                      ],
-                    ),
+                      )
+                    ],
                   ),
                 );
               }
@@ -150,45 +152,47 @@ class _HomeTabState extends State<HomeTab> {
                     imagePath: recommendMovie.posterPath ?? "",
                   );
                 }).toList();
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(MovieDetailsScreen.routName);
-                  },
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.35,
-                    width: double.infinity,
-                    color: AppTheme.grayBG,
-                    padding: const EdgeInsets.all(24),
-                    margin: const EdgeInsets.only(bottom: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Recommended",
-                          style: Theme.of(context).textTheme.titleSmall,
+                return Container(
+                  height: MediaQuery.of(context).size.height * 0.40,
+                  width: double.infinity,
+                  color: AppTheme.grayBG,
+                  padding: const EdgeInsets.all(24),
+                  margin: const EdgeInsets.only(bottom: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Recommended",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Expanded(
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(
+                              width: 8,
+                            );
+                          },
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            final recommendedMovie = recommended[index];
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                    MovieDetailsScreen.routName,
+                                    arguments:
+                                        snapshot.data?.results?[index].id);
+                              },
+                              child: RecommendedItem(
+                                  recommendedModel: recommendedMovie),
+                            );
+                          },
+                          itemCount: recommended.length,
                         ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Expanded(
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(
-                                width: 8,
-                              );
-                            },
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              final recommendedMovie = recommended[index];
-                              return RecommendedItem(
-                                  recommendedModel: recommendedMovie);
-                            },
-                            itemCount: recommended.length,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 );
               }

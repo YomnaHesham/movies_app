@@ -2,7 +2,6 @@ class RecommendedModel {
   String title;
   String releasedDate;
   String imagePath;
-
   double rate;
 
   RecommendedModel({
