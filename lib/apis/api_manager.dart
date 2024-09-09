@@ -8,6 +8,7 @@ import 'package:movies/models/movie_detailes_response.dart';
 import 'package:movies/models/new_releases_response.dart';
 import 'package:movies/models/popular_response.dart';
 import 'package:movies/models/recommended_response.dart';
+import 'package:movies/models/search_response.dart';
 
 class ApiManager {
   static Future<PopularResponse> getPopular() async {
@@ -120,7 +121,7 @@ class ApiManager {
   }
 
   static Future<GenreMovieResponse> getGenreMovie() async {
-//https://api.themoviedb.org/3/genre/movie/list?language=en&Authorization=Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzYjE0YzY5YTI1YmFkYzkyOTk0YjVkMTNiMTg0YWNkZSIsIm5iZiI6MTcyNTgyNzA5MC4yNDExMTgsInN1YiI6IjY2ZDczNmFkNzdmZWQzYWViM2I4MjYzZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.xdNfdaANmuTrVpifsW6pz64H7ZM_XsIXtAO9ZSIyboY
+    //https://api.themoviedb.org/3/genre/movie/list?language=en&Authorization=Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzYjE0YzY5YTI1YmFkYzkyOTk0YjVkMTNiMTg0YWNkZSIsIm5iZiI6MTcyNTgyNzA5MC4yNDExMTgsInN1YiI6IjY2ZDczNmFkNzdmZWQzYWViM2I4MjYzZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.xdNfdaANmuTrVpifsW6pz64H7ZM_XsIXtAO9ZSIyboY
     Uri url =
         Uri.parse('https://api.themoviedb.org/3/genre/movie/list?language=en');
 
@@ -135,5 +136,32 @@ class ApiManager {
     Map<String, dynamic> jsonFormat = jsonDecode(response.body);
 
     return GenreMovieResponse.fromJson(jsonFormat);
+  }
+
+  static Future<SearchResponse> getSearch(String query) async {
+    //https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&Authorization=Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzYjE0YzY5YTI1YmFkYzkyOTk0YjVkMTNiMTg0YWNkZSIsIm5iZiI6MTcyNTgyNzA5MC4yNDExMTgsInN1YiI6IjY2ZDczNmFkNzdmZWQzYWViM2I4MjYzZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.xdNfdaANmuTrVpifsW6pz64H7ZM_XsIXtAO9ZSIyboY
+    Uri url =
+        Uri.parse('https://api.themoviedb.org/3/search/movie?query=$query');
+
+    http.Response response = await http.get(
+      url,
+      headers: {
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzYjE0YzY5YTI1YmFkYzkyOTk0YjVkMTNiMTg0YWNkZSIsIm5iZiI6MTcyNTgyNzA5MC4yNDExMTgsInN1YiI6IjY2ZDczNmFkNzdmZWQzYWViM2I4MjYzZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.xdNfdaANmuTrVpifsW6pz64H7ZM_XsIXtAO9ZSIyboY'
+      },
+    );
+    Map<String, dynamic> jsonFormat = jsonDecode(response.body);
+
+    return SearchResponse.fromJson(jsonFormat);
+    //
+    // if (response.statusCode == 200) {
+    //   var json = jsonDecode(response.body);
+    //   List<SearchResponse> movies = (json['results'] as List)
+    //       .map((e) => SearchResponse.fromJson(e))
+    //       .toList();
+    //   return movies;
+    // } else {
+    //   throw Exception('Failed to load movies');
+    // }
   }
 }
