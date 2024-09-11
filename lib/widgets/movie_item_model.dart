@@ -1,3 +1,4 @@
+
 class MovieItemModel {
   double width;
   double height;
@@ -10,3 +11,4 @@ class MovieItemModel {
     required this.imagePath,
   });
 }
+

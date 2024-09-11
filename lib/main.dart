@@ -3,11 +3,17 @@ import 'package:movies/app_theme.dart';
 import 'package:movies/screens/home_screen.dart';
 import 'package:movies/screens/movie_details_screen.dart';
 import 'package:movies/screens/splash_screen.dart';
-import 'package:movies/screens/tabs/browes/browse_tab.dart';
 import 'package:movies/screens/tabs/browes/movies_category.dart';
+import 'package:movies/screens/tabs/watclist/watchlist_movie_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MoviesApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => WatchlistProvider(),
+      child: MoviesApp(),
+    ),
+  );
 }
 
 class MoviesApp extends StatelessWidget {

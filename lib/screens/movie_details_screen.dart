@@ -48,7 +48,7 @@ class MovieDetailsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.70,
+                    height: MediaQuery.of(context).size.height * 0.65,
                     child: Column(
                       children: [
                         Stack(
@@ -215,7 +215,7 @@ class MovieDetailsScreen extends StatelessWidget {
                         }).toList();
 
                         return Container(
-                          height: MediaQuery.of(context).size.height * 0.40,
+                          height: MediaQuery.of(context).size.height * 0.35,
                           width: double.infinity,
                           color: AppTheme.grayBG,
                           padding: const EdgeInsets.all(24),

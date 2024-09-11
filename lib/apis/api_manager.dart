@@ -153,15 +153,6 @@ class ApiManager {
     Map<String, dynamic> jsonFormat = jsonDecode(response.body);
 
     return SearchResponse.fromJson(jsonFormat);
-    //
-    // if (response.statusCode == 200) {
-    //   var json = jsonDecode(response.body);
-    //   List<SearchResponse> movies = (json['results'] as List)
-    //       .map((e) => SearchResponse.fromJson(e))
-    //       .toList();
-    //   return movies;
-    // } else {
-    //   throw Exception('Failed to load movies');
-    // }
+
   }
 }

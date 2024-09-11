@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:movies/app_theme.dart';
+import 'package:movies/screens/tabs/watclist/watchlist_movie_model.dart';
+import 'package:movies/screens/tabs/watclist/watchlist_movie_provider.dart';
+import 'package:movies/widgets/movie_item_model.dart';
+import 'package:provider/provider.dart';
 
 class AddToWatchlistItem extends StatefulWidget {
-  AddToWatchlistItem({super.key});
+  final WatchlistMovieModel movie;
+
+  const AddToWatchlistItem({required this.movie, super.key});
 
   @override
   State<AddToWatchlistItem> createState() => _AddToWatchlistItemState();
 }
 
 class _AddToWatchlistItemState extends State<AddToWatchlistItem> {
-  bool isTaped = false;
+  bool isAdded = false;
 
   @override
   Widget build(BuildContext context) {
+    var watchlistProvider = Provider.of<WatchlistProvider>(context);
+
     return InkWell(
       onTap: () {
-        isTaped = !isTaped;
-        print(isTaped);
-        setState(() {});
+        setState(() {
+          isAdded = !isAdded;
+        });
+
+        if (isAdded) {
+          watchlistProvider.addToWatchlist(widget.movie);
+        }
       },
       child: Column(
         children: [
@@ -25,8 +37,7 @@ class _AddToWatchlistItemState extends State<AddToWatchlistItem> {
             padding: const EdgeInsets.only(top: 8),
             width: 32,
             decoration: BoxDecoration(
-              color:
-                  !isTaped ? AppTheme.grayBG.withOpacity(0.8) : AppTheme.primary,
+              color: !isAdded ? Colors.grey.withOpacity(0.8) : AppTheme.primary,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(4),
                 topRight: Radius.circular(4),
@@ -34,8 +45,8 @@ class _AddToWatchlistItemState extends State<AddToWatchlistItem> {
             ),
             child: Center(
               child: Icon(
-                !isTaped ? Icons.add : Icons.done,
-                color: AppTheme.white,
+                !isAdded ? Icons.add : Icons.done,
+                color: Colors.white,
                 size: 24,
               ),
             ),
@@ -45,8 +56,7 @@ class _AddToWatchlistItemState extends State<AddToWatchlistItem> {
             child: Container(
               width: 32,
               padding: const EdgeInsets.all(8),
-              color:
-                  !isTaped ? AppTheme.grayBG.withOpacity(0.8) : AppTheme.primary,
+              color: !isAdded ? Colors.grey.withOpacity(0.8) : AppTheme.primary,
             ),
           ),
         ],

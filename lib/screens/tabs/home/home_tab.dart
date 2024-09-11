@@ -90,7 +90,7 @@ class _HomeTabState extends State<HomeTab> {
                   );
                 }).toList();
                 return Container(
-                  height: MediaQuery.of(context).size.height * 0.30,
+                  height: MediaQuery.of(context).size.height * 0.25,
                   width: double.infinity,
                   color: AppTheme.grayBG,
                   padding: const EdgeInsets.all(24),
@@ -153,7 +153,7 @@ class _HomeTabState extends State<HomeTab> {
                   );
                 }).toList();
                 return Container(
-                  height: MediaQuery.of(context).size.height * 0.40,
+                  height: MediaQuery.of(context).size.height * 0.35,
                   width: double.infinity,
                   color: AppTheme.grayBG,
                   padding: const EdgeInsets.all(24),
