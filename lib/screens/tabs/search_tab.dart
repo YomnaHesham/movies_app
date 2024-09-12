@@ -1,3 +1,4 @@
+import 'dart:async'; // Needed for the debounce functionality
 import 'package:flutter/material.dart';
 import 'package:movies/apis/api_manager.dart';
 import 'package:movies/app_theme.dart';
@@ -14,17 +15,41 @@ class SearchTab extends StatefulWidget {
 }
 
 class _SearchTabState extends State<SearchTab> {
-  final TextEditingController _searchController = TextEditingController();
-  String _query = '';
-  Future<SearchResponse>? _searchResults;
+  final TextEditingController searchController = TextEditingController();
+  String query = '';
+  Future<SearchResponse>? searchResults;
+  Timer? debounce;
 
-  void _onSearch() {
-    if (_searchController.text.isNotEmpty) {
-      setState(() {
-        _query = _searchController.text;
-        _searchResults = ApiManager.getSearch(_query);
-      });
+  @override
+  void initState() {
+    super.initState();
+    searchController.addListener(onSearchChanged);
+  }
+
+  @override
+  void dispose() {
+    searchController.removeListener(onSearchChanged);
+    searchController.dispose();
+    debounce?.cancel();
+    super.dispose();
+  }
+
+  void onSearchChanged() {
+    if (debounce?.isActive ?? false) {
+      debounce?.cancel();
     }
+    debounce = Timer(const Duration(milliseconds: 500), () {
+      if (searchController.text.isEmpty) {
+        setState(() {
+          searchResults = null;
+        });
+      } else if (searchController.text.isNotEmpty) {
+        setState(() {
+          query = searchController.text;
+          searchResults = ApiManager.getSearch(query);
+        });
+      }
+    });
   }
 
   @override
@@ -34,11 +59,11 @@ class _SearchTabState extends State<SearchTab> {
       child: Column(
         children: [
           TextField(
-            controller: _searchController,
+            controller: searchController,
             keyboardType: TextInputType.name,
             decoration: InputDecoration(
               prefixIcon: IconButton(
-                onPressed: _onSearch,
+                onPressed: onSearchChanged,
                 icon: const Icon(
                   Icons.search,
                   size: 24,
@@ -67,16 +92,13 @@ class _SearchTabState extends State<SearchTab> {
                   .titleSmall!
                   .copyWith(color: AppTheme.grayBody),
             ),
-            onSubmitted: (value) {
-              _onSearch();
-            },
           ),
           const SizedBox(
             height: 24,
           ),
           Expanded(
             child: FutureBuilder<SearchResponse>(
-              future: _searchResults,
+              future: searchResults,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());

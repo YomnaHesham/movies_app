@@ -58,7 +58,7 @@ class RecommendedItem extends StatelessWidget {
               child: Text(
                 recommendedModel.title,
                 overflow: TextOverflow.ellipsis,
-                maxLines: 2,
+                maxLines: 1,
                 softWrap: true,
                 style: Theme.of(context).textTheme.bodySmall,
               ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movies/screens/movie_details_screen.dart';
 import 'package:movies/screens/tabs/watclist/watchlist_movie.dart';
 import 'package:movies/screens/tabs/watclist/watchlist_movie_provider.dart';
 import 'package:provider/provider.dart';

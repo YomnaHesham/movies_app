@@ -85,7 +85,7 @@ class MoviesCategory extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 110,
+                            height: 90,
                             child: MovieItem(
                               movieItemModel: MovieItemModel(
                                   width: double.infinity,

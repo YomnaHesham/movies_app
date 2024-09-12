@@ -48,7 +48,7 @@ class MovieDetailsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.65,
+                    height: MediaQuery.of(context).size.height * 0.70,
                     child: Column(
                       children: [
                         Stack(

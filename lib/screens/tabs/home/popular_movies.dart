@@ -8,7 +8,8 @@ import 'package:movies/screens/tabs/home/popular_movies_model.dart';
 class PopularMovies extends StatelessWidget {
   final PopularMoviesModel popularMoviesModel;
 
-  PopularMovies({required this.popularMoviesModel, super.key});
+  PopularMovies(
+      {required this.popularMoviesModel,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +33,13 @@ class PopularMovies extends StatelessWidget {
                   ),
                   IconButton(
                     icon: const Icon(Icons.play_circle,
-                        size: 60, color: AppTheme.white),
+                        size: 50, color: AppTheme.white),
                     onPressed: () {},
                   ),
                 ],
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.60,
+                width: MediaQuery.of(context).size.width * 0.55,
                 padding: const EdgeInsets.symmetric(vertical: 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
