@@ -1,4 +1,4 @@
-import 'dart:async'; // Needed for the debounce functionality
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:movies/apis/api_manager.dart';
 import 'package:movies/app_theme.dart';
@@ -26,30 +26,18 @@ class _SearchTabState extends State<SearchTab> {
     searchController.addListener(onSearchChanged);
   }
 
-  @override
-  void dispose() {
-    searchController.removeListener(onSearchChanged);
-    searchController.dispose();
-    debounce?.cancel();
-    super.dispose();
-  }
-
   void onSearchChanged() {
-    if (debounce?.isActive ?? false) {
-      debounce?.cancel();
+    if (searchController.text.isEmpty) {
+      setState(() {
+        searchResults = null;
+      });
+    } else if (searchController.text.isNotEmpty) {
+      setState(() {
+        query = searchController.text;
+        searchResults = ApiManager.getSearch(query);
+      });
     }
-    debounce = Timer(const Duration(milliseconds: 500), () {
-      if (searchController.text.isEmpty) {
-        setState(() {
-          searchResults = null;
-        });
-      } else if (searchController.text.isNotEmpty) {
-        setState(() {
-          query = searchController.text;
-          searchResults = ApiManager.getSearch(query);
-        });
-      }
-    });
+    ;
   }
 
   @override
@@ -61,6 +49,8 @@ class _SearchTabState extends State<SearchTab> {
           TextField(
             controller: searchController,
             keyboardType: TextInputType.name,
+            onSubmitted: (value) => onSearchChanged(),
+            cursorColor: AppTheme.white,
             decoration: InputDecoration(
               prefixIcon: IconButton(
                 onPressed: onSearchChanged,

@@ -55,7 +55,7 @@ class _HomeTabState extends State<HomeTab> {
                     enlargeCenterPage: false,
                     viewportFraction: 1.0,
                     autoPlay: true,
-                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayInterval: const Duration(seconds: 5),
                   ),
                   itemBuilder: (context, index, realIndex) {
                     final movie = popularMovies[index];
