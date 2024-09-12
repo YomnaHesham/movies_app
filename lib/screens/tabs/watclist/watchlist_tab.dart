@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/screens/movie_details_screen.dart';
 import 'package:movies/screens/tabs/watclist/watchlist_movie.dart';
 import 'package:movies/screens/tabs/watclist/watchlist_movie_provider.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,7 @@ class WatchlistTab extends StatelessWidget {
                       itemCount: watchlist.length,
                       itemBuilder: (context, index) {
                         final movie = watchlist[index];
-                        return WatchlistMovie(watchlistMovieModel: movie);
+                        return WatchlistMovie(recommendedModel: movie);
                       },
                     ),
             ),

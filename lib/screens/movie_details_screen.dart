@@ -91,6 +91,9 @@ class MovieDetailsScreen extends StatelessWidget {
                                 children: [
                                   MovieItem(
                                     movieItemModel: moviePoster,
+                                    title: result?.title ?? "No Title",
+                                    date: result?.releaseDate ?? "Unknown Date",
+                                    rate: result?.voteAverage ?? 0,
                                   ),
                                   const SizedBox(
                                     width: 16,
@@ -115,12 +118,12 @@ class MovieDetailsScreen extends StatelessWidget {
                                                 onPressed: () {
                                                   Navigator.of(context)
                                                       .pushNamed(
-                                                          MoviesCategory.routName,
+                                                          MoviesCategory
+                                                              .routName,
                                                           arguments:
                                                               category[index]
                                                                   .id);
-                                                  print(category[index]
-                                                      .id);
+                                                  print(category[index].id);
                                                 },
                                                 style: ElevatedButton.styleFrom(
                                                     textStyle: Theme.of(context)

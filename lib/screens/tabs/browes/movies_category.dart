@@ -64,20 +64,19 @@ class MoviesCategory extends StatelessWidget {
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 32,
-                    crossAxisSpacing: 32),
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16),
                 itemBuilder: (context, index) {
                   var movie = result[index];
                   String imagePath =
                       'https://image.tmdb.org/t/p/w500${movie.posterPath ?? ""}';
                   String title = movie.title ?? "No Title";
-                  String releaseDate = movie.releaseDate ?? "Unknown Date";
-                  String rate = movie.voteAverage?.toStringAsFixed(1) ?? "0.0";
+                  double rate = movie.voteAverage ?? 0;
                   return GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushNamed(
                           MovieDetailsScreen.routName,
-                          arguments:result[index].id);
+                          arguments: result[index].id);
                     },
                     child: Card(
                       elevation: 16,
@@ -85,20 +84,34 @@ class MoviesCategory extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
+                          SizedBox(
+                            height: 110,
                             child: MovieItem(
                               movieItemModel: MovieItemModel(
                                   width: double.infinity,
                                   height: double.infinity,
                                   imagePath: imagePath),
+                              title: title,
+                              date: movie.releaseDate ?? "Unknown Date",
+                              rate: rate,
                             ),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 8.0, top: 8.0),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  title,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  softWrap: true,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, bottom: 8.0),
                                 child: Row(
                                   children: [
                                     const Icon(
@@ -110,31 +123,11 @@ class MoviesCategory extends StatelessWidget {
                                       width: 8,
                                     ),
                                     Text(
-                                      rate,
+                                      rate.toString().substring(0, 3),
                                       style:
                                           Theme.of(context).textTheme.bodySmall,
                                     ),
                                   ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  title,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  releaseDate,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall
-                                      ?.copyWith(color: AppTheme.grayDate),
                                 ),
                               ),
                             ],

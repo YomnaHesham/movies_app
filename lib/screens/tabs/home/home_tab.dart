@@ -45,6 +45,7 @@ class _HomeTabState extends State<HomeTab> {
                       title: movieData.title ?? "No Title",
                       releaseDate: movieData.releaseDate ?? "Unknown Date",
                       imagePath: movieData.posterPath ?? "",
+                      rate: movieData.voteAverage ?? 0,
                       id: movieData.id ?? 0);
                 }).toList();
                 return CarouselSlider.builder(
@@ -116,13 +117,24 @@ class _HomeTabState extends State<HomeTab> {
                           itemBuilder: (context, index) {
                             final newMovie = newReleases[index];
                             return GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pushNamed(
-                                      MovieDetailsScreen.routName,
-                                      arguments:
-                                          snapshot.data?.results?[index].id);
-                                },
-                                child: MovieItem(movieItemModel: newMovie));
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                    MovieDetailsScreen.routName,
+                                    arguments:
+                                        snapshot.data?.results?[index].id);
+                              },
+                              child: MovieItem(
+                                movieItemModel: newMovie,
+                                title: snapshot.data?.results?[index].title ??
+                                    "No Title",
+                                date: snapshot
+                                        .data?.results?[index].releaseDate ??
+                                    "Unknown Date",
+                                rate: snapshot
+                                        .data?.results?[index].voteAverage ??
+                                    0,
+                              ),
+                            );
                           },
                           itemCount: newReleases.length,
                         ),

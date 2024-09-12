@@ -12,7 +12,8 @@ class PopularMovies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String posterUrl = 'https://image.tmdb.org/t/p/w500${popularMoviesModel.imagePath}';
+    String posterUrl =
+        'https://image.tmdb.org/t/p/w500${popularMoviesModel.imagePath}';
     return Container(
       height: MediaQuery.of(context).size.height * 0.45,
       child: Stack(
@@ -62,7 +63,11 @@ class PopularMovies extends StatelessWidget {
             bottom: 24,
             left: 20,
             child: MovieItem(
-              movieItemModel: MovieItemModel(width: 129, height: 199, imagePath: posterUrl),
+              movieItemModel:
+                  MovieItemModel(width: 129, height: 199, imagePath: posterUrl),
+              title: popularMoviesModel.title,
+              date: popularMoviesModel.releaseDate,
+              rate: popularMoviesModel.rate,
             ),
           ),
         ],

@@ -14,18 +14,25 @@ class RecommendedItem extends StatelessWidget {
     String posterUrl =
         'https://image.tmdb.org/t/p/w500${recommendedModel.imagePath}';
 
-    return Container(
-      width: 100,
+    return SizedBox(
+      width: 120,
       child: Card(
-      shadowColor:AppTheme.blackBG,
+        shadowColor: AppTheme.blackBG,
         elevation: 16,
         color: AppTheme.grayBG,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MovieItem(
-              movieItemModel:
-                  MovieItemModel(width: 100, height: 127, imagePath: posterUrl),
+            SizedBox(
+              width: 120,
+              height: 127,
+              child: MovieItem(
+                movieItemModel: MovieItemModel(
+                    width: 120, height: 127, imagePath: posterUrl),
+                title: recommendedModel.title,
+                date: recommendedModel.releasedDate,
+                rate: recommendedModel.rate,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, top: 8.0),
@@ -40,24 +47,24 @@ class RecommendedItem extends StatelessWidget {
                     width: 8,
                   ),
                   Text(
-                    recommendedModel.rate.toString().substring(0,3),
+                    recommendedModel.rate.toString().substring(0, 3),
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0),
+              padding: const EdgeInsets.only(left: 8.0, top: 8.0),
               child: Text(
                 recommendedModel.title,
                 overflow: TextOverflow.ellipsis,
-                maxLines: 3,
+                maxLines: 2,
                 softWrap: true,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0),
+              padding: const EdgeInsets.only(left: 8.0, top: 8.0),
               child: Text(
                 recommendedModel.releasedDate,
                 style: Theme.of(context)

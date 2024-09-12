@@ -3,8 +3,8 @@ import 'package:movies/apis/api_manager.dart';
 import 'package:movies/app_theme.dart';
 import 'package:movies/models/search_response.dart';
 import 'package:movies/screens/movie_details_screen.dart';
-import 'package:movies/widgets/movie_item.dart';
-import 'package:movies/widgets/movie_item_model.dart';
+import 'package:movies/screens/tabs/watclist/watchlist_movie.dart';
+import 'package:movies/widgets/recommended_model.dart';
 
 class SearchTab extends StatefulWidget {
   const SearchTab({super.key});
@@ -15,7 +15,7 @@ class SearchTab extends StatefulWidget {
 
 class _SearchTabState extends State<SearchTab> {
   final TextEditingController _searchController = TextEditingController();
-  String _query = ''; // Store the search query
+  String _query = '';
   Future<SearchResponse>? _searchResults;
 
   void _onSearch() {
@@ -72,9 +72,8 @@ class _SearchTabState extends State<SearchTab> {
             },
           ),
           const SizedBox(
-            height: 32,
+            height: 24,
           ),
-
           Expanded(
             child: FutureBuilder<SearchResponse>(
               future: _searchResults,
@@ -93,12 +92,8 @@ class _SearchTabState extends State<SearchTab> {
                   return ListView.builder(
                     itemBuilder: (context, index) {
                       var movie = movies[index];
-                      String imagePath =
+                      String posterUrl =
                           'https://image.tmdb.org/t/p/w500${movie.posterPath ?? ""}';
-                      String title = movie.title ?? "No Title";
-                      String releaseDate = movie.releaseDate ?? "Unknown Date";
-                      String rate =
-                          movie.voteAverage?.toStringAsFixed(1) ?? "0.0";
 
                       return GestureDetector(
                         onTap: () {
@@ -106,64 +101,12 @@ class _SearchTabState extends State<SearchTab> {
                               MovieDetailsScreen.routName,
                               arguments: movie.id);
                         },
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: MovieItem(
-                                    movieItemModel: MovieItemModel(
-                                      width: 140,
-                                      height: 90,
-                                      imagePath: imagePath,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        title,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall,
-                                      ),
-                                      Text(
-                                        releaseDate,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(
-                                              color: AppTheme.white,
-                                            ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.star,
-                                              size: 16,
-                                              color: AppTheme.primary),
-                                          const SizedBox(width: 4),
-                                          Text(rate),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 14,
-                            ),
-                            const Divider(
-                              color: AppTheme.line,
-                              thickness: 2,
-                            ),
-                          ],
+                        child: WatchlistMovie(
+                          recommendedModel: RecommendedModel(
+                              imagePath: posterUrl,
+                              title: movie.title ?? "No Title",
+                              releasedDate: movie.releaseDate ?? "Unknown Date",
+                              rate: movie.voteAverage ?? 0),
                         ),
                       );
                     },
@@ -173,8 +116,6 @@ class _SearchTabState extends State<SearchTab> {
               },
             ),
           ),
-
-          // WatchlistMovie(),
         ],
       ),
     );

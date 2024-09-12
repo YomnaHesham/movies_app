@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:movies/app_theme.dart';
-import 'package:movies/screens/tabs/watclist/watchlist_movie_model.dart';
 import 'package:movies/screens/tabs/watclist/watchlist_movie_provider.dart';
-import 'package:movies/widgets/movie_item_model.dart';
+import 'package:movies/widgets/recommended_model.dart';
 import 'package:provider/provider.dart';
 
-class AddToWatchlistItem extends StatefulWidget {
-  final WatchlistMovieModel movie;
+class AddToWatchlistItem extends StatelessWidget {
+  final RecommendedModel movie;
 
-  const AddToWatchlistItem({required this.movie, super.key});
+  AddToWatchlistItem({required this.movie, super.key});
 
-  @override
-  State<AddToWatchlistItem> createState() => _AddToWatchlistItemState();
-}
-
-class _AddToWatchlistItemState extends State<AddToWatchlistItem> {
   bool isAdded = false;
 
   @override
@@ -23,12 +17,13 @@ class _AddToWatchlistItemState extends State<AddToWatchlistItem> {
 
     return InkWell(
       onTap: () {
-        setState(() {
-          isAdded = !isAdded;
-        });
+        isAdded = !isAdded;
 
-        if (isAdded) {
-          watchlistProvider.addToWatchlist(widget.movie);
+        if (isAdded == true) {
+          watchlistProvider.addToWatchlist(movie);
+        }
+        if (isAdded == false) {
+          watchlistProvider.removeFromWatchlist(movie);
         }
       },
       child: Column(
@@ -39,8 +34,8 @@ class _AddToWatchlistItemState extends State<AddToWatchlistItem> {
             decoration: BoxDecoration(
               color: !isAdded ? Colors.grey.withOpacity(0.8) : AppTheme.primary,
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(4),
-                topRight: Radius.circular(4),
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8),
               ),
             ),
             child: Center(

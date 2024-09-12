@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/apis/api_manager.dart';
 import 'package:movies/app_theme.dart';
+import 'package:movies/screens/tabs/browes/browes_item.dart';
 import 'package:movies/screens/tabs/browes/movies_category.dart';
 import 'package:movies/widgets/error_indicator.dart';
 import 'package:movies/widgets/not_available_indicator.dart';
@@ -45,24 +46,16 @@ class BrowseTab extends StatelessWidget {
                                 mainAxisSpacing: 32,
                                 crossAxisSpacing: 32),
                         itemBuilder: (context, index) {
-                          return ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pushNamed(
-                                    MoviesCategory.routName,
-                                    arguments: genres[index].id);
-                                print(genres[index].id);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  textStyle:
-                                      Theme.of(context).textTheme.titleSmall,
-                                  backgroundColor: AppTheme.blackBG,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    side: const BorderSide(
-                                        color: AppTheme.grayBody),
-                                  ),
-                                  foregroundColor: AppTheme.grayBody),
-                              child: Text(genres[index].name ?? ""));
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                  MoviesCategory.routName,
+                                  arguments: genres[index].id);
+                            },
+                            child: BrowesItem(
+                              title: genres[index].name ?? "",
+                            ),
+                          );
                         },
                         itemCount: genres.length,
                       );
